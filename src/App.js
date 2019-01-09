@@ -29,20 +29,24 @@ class App extends React.Component {
       todoTask: ""
     }
   }
-  
+
   handleChanges = event => {
+    console.log(event.target.name)
     this.setState({[event.target.name]: event.target.value});
-    console.log(event.target.name);
   }
   addNewTodo = event => {
+    console.log(event.target)
     event.preventDefault();
     this.setState({
       //Replace character array with new array using spread operator
       todoList: [
         ...this.state.todoList,
-        { todoTask: this.state.todoTask }
+        { 
+          task: this.state.todoTask,
+        }
       ]
-    });
+    })   
+    console.log(this.state.todoTask)
   };
 
   render() {
