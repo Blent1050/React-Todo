@@ -1,73 +1,76 @@
 import React from 'react';
+
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
-const todoData = [
+const todos = [
   {
-      task:'Click me to mark off the list',
-      id: Date.now(),
-      completed: false
+    task: 'Organize Garage',
+    id: 1528817077286,
+    completed: false
+  },
+  {
+    task: 'Bake Cookies',
+    id: 1528817084358,
+    completed: false
   }
 ];
- 
 
 class App extends React.Component {
-  constructor(){
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      todoList: todoData,
-      todoTask: ""
-    }
-  }
-  
-  handleChanges = event => {
-    this.setState({[event.target.name]: event.target.value});
+      todos, // same as todos: todos,
+      newTodoText: ''
+    };
   }
 
-  addNewTodo = event => {
-    event.preventDefault();
+  handleChanges = ev => {
+    this.setState({ [ev.target.name]: ev.target.value });
+  };
+
+  addTodo = e => {
+    e.preventDefault();
     this.setState({
-      //Replace character array with new array using spread operator
-      todoList: [
-        ...this.state.todoList,
-        { 
-          task: this.state.todoTask,
+      todos: [
+        ...this.state.todos,
+        {
+          task: this.state.newTodoText,
           id: Date.now(),
           completed: false
         }
-      ]
-    },console.log(`Added new todo!`))   
+      ],
+      newTodoText: ''
+    });
   };
 
-  handleClick = id => {
-    console.log(`Clicked item with id: ${id}`);
+  toggleCompleted = id => {
     this.setState({
-      todoList: this.state.todoList.map(todo => { 
-          if(todo.id === id){
-            return {
-              ...todo,
-              completed : !todo.completed
-            }
-          }
-          return todo;
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          // this is the one we clicked on
+          return {
+            ...todo,
+            completed: !todo.completed
+          };
+        }
+        return todo;
       })
-    })
-  }
-
-
-
-
+    });
+  };
 
   render() {
     return (
       <div>
-        <TodoList 
-        handleClick={this.handleClick} 
-        todoList={this.state.todoList}/>
-        <TodoForm 
-        formData={this.todoTask} 
-        handleChanges={this.handleChanges}
-        addNewTodo={this.addNewTodo}
+        <h2>Welcome to your Todo App!</h2>
+        <TodoList
+          toggleCompleted={this.toggleCompleted}
+          todos={this.state.todos}
+        />
+        <TodoForm
+          addTodo={this.addTodo}
+          handleChanges={this.handleChanges}
+          newTodoText={this.state.newTodoText}
         />
       </div>
     );
