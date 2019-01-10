@@ -2,7 +2,7 @@ import React from 'react';
 
 function Todo(props) {
     return(
-        <p className={`${props.addClass}`} onClick={props.handleClick}>{props.todoList}</p>
+        <p className={props.completed ? 'completed' : 'not-completed'} onClick={() => props.handleClick(props.todoList.id)}>{props.todoList}</p>
     )
 }
 

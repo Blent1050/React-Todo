@@ -40,26 +40,30 @@ class App extends React.Component {
   };
 
   handleClick = id => {
-    console.log('clicked')
+    console.log(`Clicked item with id: ${id}`);
     this.setState({
-      todoList: this.state.todoList.map(todo => {
-        if(todo.id === id){
-          return{
-            ...todo,
-            color: todo.color === 'green' ? 'red' : 'green'
-          };
-        }else{
+      todoList: this.state.todoList.map(todo => { 
+          if(todo.id === id){
+            return {
+              ...todo,
+              completed : !todo.completed
+            }
+          }
           return todo;
-        }
       })
     })
   }
 
 
+
+
+
   render() {
     return (
       <div>
-        <TodoList handleClick={this.handleClick} todoList={this.state.todoList}/>
+        <TodoList 
+        handleClick={this.handleClick} 
+        todoList={this.state.todoList}/>
         <TodoForm 
         formData={this.todoTask} 
         handleChanges={this.handleChanges}

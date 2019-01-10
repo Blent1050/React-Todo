@@ -6,7 +6,10 @@ import Todo from './Todo';
 function TodoList(props){
     return(
         props.todoList.map(todo =>{
-            return <Todo handleClick={() => props.handleClick(todo.id)} key={todo.id} todoList={todo.task}/>
+            return <Todo 
+            handleClick={() => props.handleClick(todo.id)} 
+            key={todo.id} 
+            todoList={todo.task}/>
         })
     
     )
