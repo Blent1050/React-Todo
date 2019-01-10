@@ -10,6 +10,7 @@ function TodoForm(props) {
         name="newTodoText"
       />
       <button onClick={props.addTodo}>Add Todo</button>
+      <button onClick={props.removeTodo}>Clear Todos</button>
     </form>
   );
 }

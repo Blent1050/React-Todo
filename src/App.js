@@ -44,6 +44,8 @@ class App extends React.Component {
     });
   };
 
+
+
   toggleCompleted = id => {
     this.setState({
       todos: this.state.todos.map(todo => {
@@ -59,6 +61,12 @@ class App extends React.Component {
     });
   };
 
+  removeTodo = e => {
+    e.preventDefault();
+    this.setState({
+      todos: this.state.todos.filter(todo => !todo.completed)
+    });
+  }
   render() {
     return (
       <div>
@@ -71,6 +79,7 @@ class App extends React.Component {
           addTodo={this.addTodo}
           handleChanges={this.handleChanges}
           newTodoText={this.state.newTodoText}
+          removeTodo={this.removeTodo}
         />
       </div>
     );
