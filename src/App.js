@@ -3,17 +3,9 @@ import React from 'react';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
+import './style.css'
 const todos = [
-  {
-    task: 'Organize Garage',
-    id: 1528817077286,
-    completed: false
-  },
-  {
-    task: 'Bake Cookies',
-    id: 1528817084358,
-    completed: false
-  }
+
 ];
 
 class App extends React.Component {
@@ -69,17 +61,18 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
-        <TodoList
-          toggleCompleted={this.toggleCompleted}
-          todos={this.state.todos}
-        />
+      <div className='app'>
+        <h2>Manage all of your todo's here!</h2>
+
         <TodoForm
           addTodo={this.addTodo}
           handleChanges={this.handleChanges}
           newTodoText={this.state.newTodoText}
           removeTodo={this.removeTodo}
+        />
+        <TodoList
+          toggleCompleted={this.toggleCompleted}
+          todos={this.state.todos}
         />
       </div>
     );
