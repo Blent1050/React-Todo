@@ -1,62 +1,78 @@
 import React from 'react';
+
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
-const todoData = [
-  {
-      task:'Learn setState()',
-      id: 1,
-      completed: false
-  },
-  {
-      task:'Style Todo LIST',
-      id: 2,
-      completed: false
-  },
-  {
-      task:'Learn react',
-      id: 3,
-      completed: false
-  }
+import './style.css'
+const todos = [
+
 ];
 
-
 class App extends React.Component {
-  constructor(){
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      todoList: todoData,
-      todoTask: ""
-    }
+      todos, // same as todos: todos,
+      newTodoText: ''
+    };
   }
 
-  handleChanges = event => {
-    console.log(event.target.name)
-    this.setState({[event.target.name]: event.target.value});
-  }
-  addNewTodo = event => {
-    console.log(event.target)
-    event.preventDefault();
-    this.setState({
-      //Replace character array with new array using spread operator
-      todoList: [
-        ...this.state.todoList,
-        { 
-          task: this.state.todoTask,
-        }
-      ]
-    })   
-    console.log(this.state.todoTask)
+  handleChanges = ev => {
+    this.setState({ [ev.target.name]: ev.target.value });
   };
 
+  addTodo = e => {
+    e.preventDefault();
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {
+          task: this.state.newTodoText,
+          id: Date.now(),
+          completed: false
+        }
+      ],
+      newTodoText: ''
+    });
+  };
+
+
+
+  toggleCompleted = id => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          // this is the one we clicked on
+          return {
+            ...todo,
+            completed: !todo.completed
+          };
+        }
+        return todo;
+      })
+    });
+  };
+
+  removeTodo = e => {
+    e.preventDefault();
+    this.setState({
+      todos: this.state.todos.filter(todo => !todo.completed)
+    });
+  }
   render() {
     return (
-      <div>
-        <TodoList todoList={this.state.todoList}/>
-        <TodoForm 
-        formData={this.todoTask} 
-        handleChanges={this.handleChanges}
-        addNewTodo={this.addNewTodo}
+      <div className='app'>
+        <h2>Manage all of your todo's here!</h2>
+
+        <TodoForm
+          addTodo={this.addTodo}
+          handleChanges={this.handleChanges}
+          newTodoText={this.state.newTodoText}
+          removeTodo={this.removeTodo}
+        />
+        <TodoList
+          toggleCompleted={this.toggleCompleted}
+          todos={this.state.todos}
         />
       </div>
     );

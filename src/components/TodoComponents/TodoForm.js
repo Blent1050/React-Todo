@@ -1,21 +1,22 @@
 import React from 'react';
 
 function TodoForm(props) {
-   
-    return (
+  return (
+    <div>
         <form>
-            <input 
-            value={props.characterName}
-            placeholder='...todo'
-            type='text'
-            name="todoTask"
+        <input
+            className='ui input focus'
+            value={props.newTodoText}
+            type="text"
+            placeholder='enter todo...'
             onChange={props.handleChanges}
-            />
-
-            <button  onClick={props.addNewTodo}>Add Todo</button>
-            <button>Clear Todo</button>
+            name="newTodoText"
+        />
         </form>
-    )
+        <button className='positive ui button' onClick={props.addTodo}>Add Todo</button>
+        <button className='negative ui button' onClick={props.removeTodo}>Clear Todos</button>
+    </div>
+  );
 }
 
 export default TodoForm;
