@@ -2,7 +2,7 @@ import React from 'react';
 
 function Todo(props) {
     return(
-        <div>{props.todoList}</div>
+        <p className={`${props.addClass}`} onClick={props.handleClick}>{props.todoList}</p>
     )
 }
 

@@ -4,22 +4,12 @@ import TodoForm from './components/TodoComponents/TodoForm';
 
 const todoData = [
   {
-      task:'Learn setState()',
-      id: 1,
-      completed: false
-  },
-  {
-      task:'Style Todo LIST',
-      id: 2,
-      completed: false
-  },
-  {
-      task:'Learn react',
-      id: 3,
+      task:'Click me to mark off the list',
+      id: Date.now(),
       completed: false
   }
 ];
-
+ 
 
 class App extends React.Component {
   constructor(){
@@ -29,13 +19,12 @@ class App extends React.Component {
       todoTask: ""
     }
   }
-
+  
   handleChanges = event => {
-    console.log(event.target.name)
     this.setState({[event.target.name]: event.target.value});
   }
+
   addNewTodo = event => {
-    console.log(event.target)
     event.preventDefault();
     this.setState({
       //Replace character array with new array using spread operator
@@ -43,16 +32,34 @@ class App extends React.Component {
         ...this.state.todoList,
         { 
           task: this.state.todoTask,
+          id: Date.now(),
+          completed: false
         }
       ]
-    })   
-    console.log(this.state.todoTask)
+    },console.log(`Added new todo!`))   
   };
+
+  handleClick = id => {
+    console.log('clicked')
+    this.setState({
+      todoList: this.state.todoList.map(todo => {
+        if(todo.id === id){
+          return{
+            ...todo,
+            color: todo.color === 'green' ? 'red' : 'green'
+          };
+        }else{
+          return todo;
+        }
+      })
+    })
+  }
+
 
   render() {
     return (
       <div>
-        <TodoList todoList={this.state.todoList}/>
+        <TodoList handleClick={this.handleClick} todoList={this.state.todoList}/>
         <TodoForm 
         formData={this.todoTask} 
         handleChanges={this.handleChanges}
